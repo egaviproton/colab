@@ -35,3 +35,7 @@ def colab_setup():
     print( os.listdir() )
     from google.colab import files 
     # files.download( "test.png" ) 
+
+
+if __name__ == '__main__':
+    show_version()
