@@ -36,6 +36,13 @@ def colab_setup():
     from google.colab import files 
     # files.download( "test.png" ) 
 
-
+# number of seconds nicely formatted as a time string
+def hms_string(sec_elapsed):
+    h = int(sec_elapsed / (60 * 60))
+    m = int((sec_elapsed % (60 * 60)) / 60)
+    s = sec_elapsed % 60
+    return f"{h}:{m:>02}:{s:>05.2f}"
+    
+    
 if __name__ == '__main__':
     show_version()
