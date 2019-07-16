@@ -1,4 +1,7 @@
 def show_version():
+    import numpy as np
+    from __future__ import absolute_import
+    #Anything from keras
     import tensorflow as tf
     print("Tensor Flow version: {}".format(tf.__version__))
     built_with_CUDA = tf.test.is_built_with_cuda()
@@ -17,8 +20,10 @@ def show_version():
     print("GPU is available: {}".format(GPU_is_available))
 
 def colab_setup():
-    # Don't display numpy in scientific notation
+    # before importing keras
     import numpy as np
+    from __future__ import absolute_import
+    # Don't display numpy in scientific notation
     np.set_printoptions(precision=4)
     np.set_printoptions(suppress=True)
     # Load the matplotlib import pyplot to set the figure size
