@@ -24,11 +24,6 @@ def colab_setup():
     # Load the matplotlib import pyplot to set the figure size
     from matplotlib import pyplot
     pyplot.rcParams["figure.figsize"] = (20,10)
-    # mount Google-Drive inside Colab
-    from google.colab import drive
-    drive.mount('/content/gdrive')
-    # with open('/content/gdrive/My Drive/file.txt', 'w') as f:
-    #  f.write('content inside file.txt')
     # Shows any files saved in Google Cloab
     import os
     print( os.getcwd() )
@@ -36,6 +31,14 @@ def colab_setup():
     from google.colab import files 
     # files.download( "test.png" ) 
 
+def colab_mount_gdrive():
+    # mount Google-Drive inside Colab
+    from google.colab import drive
+    drive.mount('/content/gdrive')
+    # with open('/content/gdrive/My Drive/file.txt', 'w') as f:
+    #  f.write('content inside file.txt')
+    
+    
 # number of seconds nicely formatted as a time string
 def hms_string(sec_elapsed):
     h = int(sec_elapsed / (60 * 60))
