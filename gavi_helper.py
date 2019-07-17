@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 def show_version():
     import numpy as np
     from __future__ import absolute_import
@@ -22,7 +24,6 @@ def show_version():
 def colab_setup():
     # before importing keras
     import numpy as np
-    from __future__ import absolute_import
     # Don't display numpy in scientific notation
     np.set_printoptions(precision=4)
     np.set_printoptions(suppress=True)
