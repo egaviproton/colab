@@ -2,7 +2,6 @@ from __future__ import absolute_import
 
 def show_version():
     import numpy as np
-    from __future__ import absolute_import
     #Anything from keras
     import tensorflow as tf
     print("Tensor Flow version: {}".format(tf.__version__))
