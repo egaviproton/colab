@@ -26,15 +26,22 @@ def colab_setup():
     # Don't display numpy in scientific notation
     np.set_printoptions(precision=4)
     np.set_printoptions(suppress=True)
+    
     # Load the matplotlib import pyplot to set the figure size
     from matplotlib import pyplot
     pyplot.rcParams["figure.figsize"] = (20,10)
+    
     # Shows any files saved in Google Cloab
     import os
     print( os.getcwd() )
     print( os.listdir() )
+    
     from google.colab import files 
     # files.download( "test.png" ) 
+    
+    # this prevents an error I was facing when downloading images from the internet
+    import logging
+    logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR)
 
 def colab_mount_gdrive():
     # mount Google-Drive inside Colab
