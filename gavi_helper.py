@@ -52,9 +52,11 @@ def hms_string(sec_elapsed):
     return f"{h}:{m:>02}:{s:>05.2f}"
     
     
-import matplotlib.pyplot as plt
+
 
 def grid_display_images(list_of_images, list_of_titles=[], no_of_columns=5, figsize=(20,20)):
+  import matplotlib.pyplot as plt  
+  plt.rcParams["figure.figsize"] = (20,10)
   # tested with   
   # from PIL import Image
   fig = plt.figure(figsize = figsize)
