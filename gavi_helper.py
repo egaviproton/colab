@@ -72,6 +72,31 @@ def grid_display_images(list_of_images, list_of_titles=[], no_of_columns=5, figs
       plt.axis('off')
       if len(list_of_titles) >= len(list_of_images):
           plt.title(list_of_titles[i])
-    
+ 
+# usage:
+# history = model.fit(......
+# plot_keras_fit_history('loss', 'val_loss', history)
+# plot_keras_fit_history('accuracy', 'val_accuracy', history)
+
+def plot_keras_fit_history(train_label, validation_label, history):
+  %matplotlib inline
+  import matplotlib.pyplot as plt
+  history_dict = history.history
+  loss = history_dict[train_label]
+  val_loss = history_dict[validation_label]  
+  epochs = range(1, len(loss) + 1)
+  # "bo" is for "blue dot"
+  plt.plot(epochs, loss, 'bo', label=train_label)
+  # b is for "solid blue line"
+  plt.plot(epochs, val_loss, 'b', label=validation_label)
+  plt.title('Keras fit history')
+  plt.xlabel('Epochs')
+  plt.ylabel('Loss')
+  plt.legend()
+  plt.show()
+
+
+
+
 if __name__ == '__main__':
     show_version()
