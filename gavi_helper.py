@@ -79,7 +79,7 @@ def grid_display_images(list_of_images, list_of_titles=[], no_of_columns=5, figs
 # plot_keras_fit_history('accuracy', 'val_accuracy', history)
 
 def plot_keras_fit_history(train_label, validation_label, history):
-  %matplotlib inline
+  #  %matplotlib inline
   import matplotlib.pyplot as plt
   history_dict = history.history
   loss = history_dict[train_label]
