@@ -103,6 +103,12 @@ def plot_keras_fit_history(train_label, validation_label, history):
   plt.show()
 
 
+# usage: unzip_file('images.zip', '.')
+def unzip_file(path_to_zip_file, directory_to_extract_to):
+  import zipfile
+  with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
+      zip_ref.extractall(directory_to_extract_to)
+      
 
 
 if __name__ == '__main__':
