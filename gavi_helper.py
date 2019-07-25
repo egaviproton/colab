@@ -115,7 +115,7 @@ def unzip_file(path_to_zip_file, directory_to_extract_to):
 # !apt-get install -y xvfb python-opengl ffmpeg > /dev/null 2>&1
 
 
-def vvideo_start_recording(rows=900, columns=1400):
+def video_start_recording(rows=900, columns=1400):
     from pyvirtualdisplay import Display
     display = Display(visible=0, size=(columns, rows))
     display.start()
