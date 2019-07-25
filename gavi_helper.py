@@ -15,25 +15,24 @@ def show_version():
     except:
       import tensorflow.keras as krs
     print("Keras version: {}".format(krs.__version__))
-    import sys
-    print("Python version: {}.{}".format(sys.version_info[0],sys.version_info[1]))
+    # import sys
+    # print("Python version: {}.{}".format(sys.version_info[0],sys.version_info[1]))
     # print("Tensor Flow Built_for_GPU: {}".format(built_with_CUDA))
     print("GPU is available: {}".format(GPU_is_available))
 
 def colab_setup():
-    # before importing keras
     import numpy as np
     # Don't display numpy in scientific notation
     np.set_printoptions(precision=4)
     np.set_printoptions(suppress=True)
     
     # Load the matplotlib import pyplot to set the figure size
-    from matplotlib import pyplot
-    pyplot.rcParams["figure.figsize"] = (20,10)
+    from matplotlib import pyplot as plt
+    plt.rcParams["figure.figsize"] = (20,10)
     
     # Shows any files saved in Google Cloab
     import os
-    print( os.getcwd() )
+    print( os.getcwd()  )
     print( os.listdir() )
     
     from google.colab import files 
@@ -108,8 +107,48 @@ def unzip_file(path_to_zip_file, directory_to_extract_to):
   import zipfile
   with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
       zip_ref.extractall(directory_to_extract_to)
-      
 
+#---------------------------------------------------------    
+# showing videoon Colab:
+# https://star-ai.github.io/Rendering-OpenAi-Gym-in-Colaboratory/
+# !pip install gym pyvirtualdisplay > /dev/null 2>&1
+# !apt-get install -y xvfb python-opengl ffmpeg > /dev/null 2>&1
+
+
+def vvideo_start_recording(rows=900, columns=1400):
+    from pyvirtualdisplay import Display
+    display = Display(visible=0, size=(columns, rows))
+    display.start()
+    
+"""
+Utility functions to enable video recording of gym environment and displaying it
+To enable video, just do "env = wrap_env(env)""
+"""
+def wrap_env(env):
+  env = Monitor(env, './video', force=True)
+  return env  
+
+def show_video():
+  import glob
+  import io
+  import base64
+  from IPython.display import HTML
+  from IPython import display as ipythondisplay 
+
+  mp4list = glob.glob('video/*.mp4')
+  if len(mp4list) > 0:
+    mp4 = mp4list[0]
+    video = io.open(mp4, 'r+b').read()
+    encoded = base64.b64encode(video)
+    ipythondisplay.display(HTML(data='''<video alt="test" autoplay 
+                loop controls style="height: 400px;">
+                <source src="data:video/mp4;base64,{0}" type="video/mp4" />
+             </video>'''.format(encoded.decode('ascii'))))
+  else: 
+    print("Could not find video")
+#---------------------------------------------------------    
+    
+  
 
 if __name__ == '__main__':
     show_version()
