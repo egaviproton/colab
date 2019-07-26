@@ -109,25 +109,17 @@ def unzip_file(path_to_zip_file, directory_to_extract_to):
       zip_ref.extractall(directory_to_extract_to)
 
 #---------------------------------------------------------    
-# showing videoon Colab:
+# recording and showing video on Colab:
 # https://star-ai.github.io/Rendering-OpenAi-Gym-in-Colaboratory/
-# !pip install gym pyvirtualdisplay > /dev/null 2>&1
+#
+# !pip install pyvirtualdisplay > /dev/null 2>&1
 # !apt-get install -y xvfb python-opengl ffmpeg > /dev/null 2>&1
 
-
-def video_start_recording(rows=900, columns=1400):
+def start_pyvirtualdisplay(rows=1400, columns=900):
     from pyvirtualdisplay import Display
-    display = Display(visible=0, size=(columns, rows))
+    display = Display(visible=0, size=(rows, columns))
     display.start()
     
-"""
-Utility functions to enable video recording of gym environment and displaying it
-To enable video, just do "env = wrap_env(env)""
-"""
-def wrap_env(env):
-  env = Monitor(env, './video', force=True)
-  return env  
-
 def show_video():
   import glob
   import io
@@ -146,8 +138,24 @@ def show_video():
              </video>'''.format(encoded.decode('ascii'))))
   else: 
     print("Could not find video")
+#=========================================================    
+
+
 #---------------------------------------------------------    
-    
+# showing gym video on Colab:
+# https://star-ai.github.io/Rendering-OpenAi-Gym-in-Colaboratory/
+#
+# !pip install gym > /dev/null 2>&1
+"""
+Utility functions to enable video recording of gym environment
+To enable video, just do
+env = colab_helper.wrap_gym_env(gym.make("MsPacman-v0"))
+"""
+def wrap_gym_env(env):
+  from gym.wrappers import Monitor
+  env = Monitor(env, './video', force=True)
+  return env  
+#=========================================================    
   
 
 if __name__ == '__main__':
