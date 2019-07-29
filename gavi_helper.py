@@ -228,12 +228,12 @@ def read_image_as_np_array(file_name, image_type=cv2.IMREAD_COLOR):
 
 def create_video_from_frame_file_names(video_file_name, file_names, fps=24):
   if len(file_names)>0:
-    img = imread_as_np_array(file_names[0])  
+    img = read_image_as_np_array(file_names[0])  
     height, width, _ = img.shape
     video= video_start_recording(video_file_name, height, width, fps)
     video_add_frame_as_numpy_array(video, img)
     for file_name in file_names:
-      img = imread_as_np_array(file_name) 
+      img = read_image_as_np_array(file_name) 
       video_add_frame_as_numpy_array(video, img)
     video_end_recording(video)
 #=========================================================      
