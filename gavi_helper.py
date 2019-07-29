@@ -158,5 +158,84 @@ def wrap_gym_env(env):
 #=========================================================    
   
 
+#---------------------------------------------------------    
+# create mp4 video from frame file names:     
+def get_file_names(folder, suffix = ""):
+  import os
+  file_names = list()
+  for file in os.listdir(folder):
+      if len(suffix) > 0 and not file.lower().endswith(suffix.lower()):
+        pass
+      else:
+        file_name = os.path.join(folder, file)
+        file_names.append(file_name)
+  file_names.sort()
+  return file_names
+
+
+def delete_file(file_name, verbose = False):
+  import os
+  if os.path.exists(file_name):
+    os.remove(file_name)
+  else:
+    if verbose:
+      print(f"The file {file_name} does not exist") 
+    
+    
+def video_start_recording(video_file_name, height, width, fps=24):
+  import numpy as np
+  import cv2
+  
+  delete_file(video_file_name)
+
+  # Create the OpenCV VideoWriter
+  # fourcc = cv2.VideoWriter_fourcc(*'avc1')  
+  fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+
+  video = cv2.VideoWriter(video_file_name,
+                          fourcc, # -1 denotes manual codec selection. You can make this automatic by defining the "fourcc codec" with "cv2.VideoWriter_fourcc"
+                          int(fps), 
+                          (width,height) # The width and height come from the stats of image1
+                          )
+  return video
+
+
+def video_end_recording(video):
+  # Release the video for it to be committed to a file
+  video.release()  
+  
+
+def video_add_frame_as_numpy_array(video, numpy_array_image):
+  import numpy as np
+  import cv2
+  # out = video.write(cv2.cvtColor(np.array(numpy_array_image), cv2.COLOR_RGB2BGR))
+  out = video.write(np.array(numpy_array_image))
+  # print(out)
+      
+    
+def read_image_as_np_array(file_name, image_type=cv2.IMREAD_COLOR):
+  """
+  returns None in case the file is not found
+  cv2.IMREAD_COLOR : Loads a color image. Any transparency of image will be neglected. It is the default flag.
+  cv2.IMREAD_GRAYSCALE : Loads image in grayscale mode
+  cv2.IMREAD_UNCHANGED : Loads image as such including alpha channel
+  """
+  import cv2
+  return cv2.imread(file_name, image_type) 
+
+
+def create_video_from_frame_file_names(video_file_name, file_names, fps=24):
+  if len(file_names)>0:
+    img = imread_as_np_array(file_names[0])  
+    height, width, _ = img.shape
+    video= video_start_recording(video_file_name, height, width, fps)
+    video_add_frame_as_numpy_array(video, img)
+    for file_name in file_names:
+      img = imread_as_np_array(file_name) 
+      video_add_frame_as_numpy_array(video, img)
+    video_end_recording(video)
+#=========================================================      
+    
+    
 if __name__ == '__main__':
     show_version()
