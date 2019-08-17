@@ -164,13 +164,14 @@ def wrap_gym_env(env):
 # create mp4 video from frame file names:     
 def get_file_names(folder, suffix = ""):
   import os
-  file_names = list()
+  file_names = set()
   for file in os.listdir(folder):
       if len(suffix) > 0 and not file.lower().endswith(suffix.lower()):
         pass
       else:
         file_name = os.path.join(folder, file)
-        file_names.append(file_name)
+        file_names.add(file_name)
+  file_names = list(file_names)      
   file_names.sort()
   return file_names
 
